@@ -12,17 +12,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-const baseURL = `${BASE_URL}/dados`;
+const baseURL = `${BASE_URL}/modalidades`;
 
-function ListagemUsuarios() {
+function ListagemAlunos() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-usuarios`);
+    navigate(`/cadastro-modalidades`);
   };
 
   const editar = (id) => {
-    navigate(`/cadastro-usuarios/${id}`);
+    navigate(`/cadastro-modalidades/${id}`);
   };
 
   const [dados, setDados] = React.useState(null);
@@ -38,7 +38,7 @@ function ListagemUsuarios() {
 
   return (
     <div className='container'>
-      <Card title='Listagem de Usuarios'>
+      <Card title='Listagem de Alunos'>
         <div className='row'>
           <div className='col-lg-12'>
             <div className='bs-component'>
@@ -47,24 +47,20 @@ function ListagemUsuarios() {
                 className='btn btn-warning'
                 onClick={() => cadastrar()}
               >
-                Novo Usuario
+                Nova Modalidade
               </button>
               <table className='table table-hover'>
                 <thead>
                   <tr>
                     <th scope='col'>Id</th>
-                    <th scope='col'>Login</th>
-                    <th scope='col'>Senha</th>
-                    <th scope='col'>Email</th>
+                    <th scope='col'>Nome</th>
                   </tr>
                 </thead>
                 <tbody>
                   {dados.map((dado) => (
-                    <tr key={dados.id}>
+                    <tr key={dado.id}>
                       <td>{dado.id}</td>
-                      <td>{dado.login}</td>
-                      <td>{dado.senha}</td>
-                      <td>{dado.email}</td>
+                      <td>{dado.nome}</td>
                      
                       {/*<td>{dado.quantMin}</td>
                       <td>{dado.vencimento}</td>
@@ -98,4 +94,4 @@ function ListagemUsuarios() {
   );
 }
 
-export default ListagemUsuarios;
+export default ListagemAlunos;

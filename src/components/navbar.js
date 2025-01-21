@@ -26,21 +26,18 @@ function Navbar(props) {
             <NavbarItem
               render='true'
               href='/listagem-usuarios'
-              label='Alunos'
+              label='Funcionarios'
             />
           </ul>
           <ul className='navbar-nav'>
-            <NavbarItem render='true' href='/listagem-funcionarios' label='Funcionários' />
+            <NavbarItem render='true' href='/listagem-alunos' label='Alunos' />
           </ul>
           <ul className='navbar-nav'>
             <NavbarItem
               render='true'
-              href='/listagem-relatorios'
-              label='Relatórios'
+              href='/listagem-planos'
+              label='Planos'
             />
-          </ul>
-          <ul className='navbar-nav'>
-            <NavbarItem render='true' href='/listagem-pagamento' label='Pagamento' />
           </ul>
           <ul className='navbar-nav'>
             <NavbarItem
@@ -48,6 +45,9 @@ function Navbar(props) {
               href='/listagem-modalidades'
               label='Modalidades'
             />
+          </ul>
+          <ul className='navbar-nav'>
+            <NavbarItem render='true' href='/listagem-pagamento' label='Pagamento' />
           </ul>
           <ul className='navbar-nav'>
             <NavbarItem
