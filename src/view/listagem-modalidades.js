@@ -14,7 +14,7 @@ import { BASE_URL } from '../config/axios';
 
 const baseURL = `${BASE_URL}/modalidades`;
 
-function ListagemAlunos() {
+function ListagemModalidades() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
@@ -94,4 +94,4 @@ function ListagemAlunos() {
   );
 }
 
-export default ListagemAlunos;
+export default ListagemModalidades;
