@@ -1,0 +1,273 @@
+{
+    "usuarios": [
+        {
+            "id": 1,
+            "login": "admin01",
+            "senha": "123456",
+            "email": "admin01@academia.com",
+            "admin": true
+        },
+        {
+            "id": 2,
+            "login": "funcionario01",
+            "senha": "123456",
+            "email": "funcionario01@academia.com",
+            "admin": false
+        }
+    ],
+    "alunos": [
+        {
+            "id": 1,
+            "nome": "Aluno 1",
+            "dataNascimento": "1990-01-01",
+            "sexo": "M",
+            "endereco": {
+                "logradouro": "Rua A",
+                "numero": 123,
+                "complemento": "Apt 1",
+                "bairro": "Centro",
+                "cidade": "São Paulo",
+                "uf": "SP",
+                "cep": "12345678"
+            },
+            "telefone": "11999999999",
+            "email": "aluno1@academia.com",
+            "cpf": "11111111111",
+            "saude": {
+                "doencas": "Nenhuma",
+                "medicacao": "Nenhuma"
+            },
+            "tipoPlano": "mensal",
+            "formaPagamento": "cartaoCredito",
+            "modalidades": [
+                "Musculação",
+                "Yoga"
+            ],
+            "foto": "url_da_foto",
+            "avaliacoes": []
+        },
+        {
+            "id": 2,
+            "nome": "Aluno 2",
+            "dataNascimento": "1995-05-05",
+            "sexo": "F",
+            "endereco": {
+                "logradouro": "Rua C",
+                "numero": 456,
+                "complemento": "Casa",
+                "bairro": "Vila Nova",
+                "cidade": "Campinas",
+                "uf": "SP",
+                "cep": "65432198"
+            },
+            "telefone": "11988888888",
+            "email": "aluno2@academia.com",
+            "cpf": "22222222222",
+            "saude": {
+                "doencas": "Nenhuma",
+                "medicacao": "Nenhuma"
+            },
+            "tipoPlano": "trimestral",
+            "formaPagamento": "pix",
+            "modalidades": [
+                "Pilates"
+            ],
+            "foto": "url_da_foto",
+            "avaliacoes": []
+        },
+        {
+            "id": 3,
+            "nome": "Aluno 3",
+            "dataNascimento": "1988-09-09",
+            "sexo": "M",
+            "endereco": {
+                "logradouro": "Avenida Z",
+                "numero": 789,
+                "complemento": "Apt 5",
+                "bairro": "Jardins",
+                "cidade": "Rio de Janeiro",
+                "uf": "RJ",
+                "cep": "78965412"
+            },
+            "telefone": "21977777777",
+            "email": "aluno3@academia.com",
+            "cpf": "33333333333",
+            "saude": {
+                "doencas": "Hipertensão",
+                "medicacao": "Losartana"
+            },
+            "tipoPlano": "anual",
+            "formaPagamento": "cartaoDebito",
+            "modalidades": [
+                "Musculação",
+                "Funcional"
+            ],
+            "foto": "url_da_foto",
+            "avaliacoes": []
+        }
+    ],
+    "funcionarios": [
+        {
+            "id": 1,
+            "nome": "Funcionario 1",
+            "dataNascimento": "1985-01-01",
+            "sexo": "F",
+            "endereco": {
+                "logradouro": "Rua B",
+                "numero": 456,
+                "bairro": "Jardim",
+                "cidade": "Rio de Janeiro",
+                "uf": "RJ",
+                "cep": "87654321"
+            },
+            "telefone": "21988888888",
+            "email": "funcionario1@academia.com",
+            "cpf": "22222222222",
+            "cargo": "Instrutor",
+            "foto": "url_da_foto"
+        },
+        {
+            "id": 2,
+            "nome": "Funcionario 2",
+            "dataNascimento": "1990-03-10",
+            "sexo": "M",
+            "endereco": {
+                "logradouro": "Rua D",
+                "numero": 789,
+                "bairro": "Centro",
+                "cidade": "Salvador",
+                "uf": "BA",
+                "cep": "23456789"
+            },
+            "telefone": "71966666666",
+            "email": "funcionario2@academia.com",
+            "cpf": "44444444444",
+            "cargo": "Personal Trainer",
+            "foto": "url_da_foto"
+        },
+        {
+            "id": 3,
+            "nome": "Funcionario 3",
+            "dataNascimento": "1980-12-25",
+            "sexo": "F",
+            "endereco": {
+                "logradouro": "Avenida Y",
+                "numero": 321,
+                "bairro": "Cidade Alta",
+                "cidade": "Fortaleza",
+                "uf": "CE",
+                "cep": "45612378"
+            },
+            "telefone": "85955555555",
+            "email": "funcionario3@academia.com",
+            "cpf": "55555555555",
+            "cargo": "Recepcionista",
+            "foto": "url_da_foto"
+        }
+    ],
+    "planos": [
+        {
+            "id": 1,
+            "nome": "diário"
+        },
+        {
+            "id": 2,
+            "nome": "semanal"
+        },
+        {
+            "id": 3,
+            "nome": "mensal"
+        },
+        {
+            "id": 4,
+            "nome": "trimestral"
+        },
+        {
+            "id": 5,
+            "nome": "semestral"
+        },
+        {
+            "id": 6,
+            "nome": "anual"
+        }
+    ],
+    "modalidades": [
+        {
+            "id": 1,
+            "nome": "Musculação"
+        },
+        {
+            "id": 2,
+            "nome": "Pilates"
+        },
+        {
+            "id": 3,
+            "nome": "Jiu-jitsu"
+        },
+        {
+            "id": 4,
+            "nome": "Spinning"
+        },
+        {
+            "id": 5,
+            "nome": "Muay-thai"
+        },
+        {
+            "id": 6,
+            "nome": "Zumba"
+        },
+        {
+            "id": 7,
+            "nome": "Funcional"
+        },
+        {
+            "id": 8,
+            "nome": "Yoga"
+        }
+    ],
+    "pagamentos": [
+        {
+            "id": 1,
+            "alunoId": 1,
+            "plano": "mensal",
+            "formaPagamento": "cartaoCredito",
+            "status": "Pago",
+            "dataPagamento": "2024-01-01"
+        }
+    ],
+    "eventos": [
+        {
+            "id": 1,
+            "titulo": "Aula Especial de Yoga",
+            "descricao": "Venha participar de uma aula especial!",
+            "imagem": "url_da_imagem",
+            "data": "2024-02-15"
+        }
+    ],
+    "relatorios": [
+        {
+            "id": 1,
+            "tipo": "fluxo_caixa",
+            "periodo": "2024-01",
+            "receitas": 5000,
+            "despesas": 2000,
+            "saldo": 3000
+        },
+        {
+            "id": 2,
+            "tipo": "frequencia",
+            "periodo": "2024-01",
+            "frequenciaDiaria": [
+                20,
+                25,
+                30,
+                28,
+                22
+            ],
+            "frequenciaSemanal": [
+                125
+            ],
+            "frequenciaMensal": 500
+        }
+    ]
+}
