@@ -1,14 +1,15 @@
-// src/view/listagem-eventos.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { BASE_URL2 } from '../config/axios';  // Certifique-se de que o caminho está correto
-import { Card } from 'react-bootstrap';  // Se estiver usando react-bootstrap
+import { BASE_URL2 } from '../config/axios';
+import Card from '../components/card';
 import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 function ListagemEventos() {
+  const navigate = useNavigate();
   const [eventos, setEventos] = useState([]);
 
   useEffect(() => {
@@ -21,14 +22,12 @@ function ListagemEventos() {
       });
   }, []);
 
-  const editar = (id) => {
-    // Função para editar evento, adicione a lógica que desejar aqui
-    console.log(`Editar evento com ID: ${id}`);
+  const cadastrar = () => {
+    navigate(`/cadastro-eventos`);
   };
 
-  const excluir = (id) => {
-    // Função para excluir evento, adicione a lógica que desejar aqui
-    console.log(`Excluir evento com ID: ${id}`);
+  const editar = (id) => {
+    navigate(`/cadastro-eventos/${id}`);
   };
 
   return (
@@ -40,7 +39,7 @@ function ListagemEventos() {
               <button
                 type='button'
                 className='btn btn-warning'
-                onClick={() => console.log('Cadastrar novo evento')}
+                onClick={cadastrar}
               >
                 Novo Evento
               </button>
@@ -50,6 +49,7 @@ function ListagemEventos() {
                     <th scope='col'>Id</th>
                     <th scope='col'>Nome do Evento</th>
                     <th scope='col'>Data</th>
+                    <th scope='col'>Ações</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,7 +68,6 @@ function ListagemEventos() {
                           </IconButton>
                           <IconButton
                             aria-label='delete'
-                            onClick={() => excluir(evento.id)}
                           >
                             <DeleteIcon />
                           </IconButton>

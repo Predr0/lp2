@@ -11,36 +11,32 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-function CadastroUsuario() {
+function CadastroModalidades() {
   const { idParam } = useParams();
   const navigate = useNavigate();
-  const baseURL = `${BASE_URL}/dados`;
+  const baseURL = `${BASE_URL}/modalidades`;
 
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
-  const [email, setEmail] = useState('');
+  const [nome, setNome] = useState('');
 
   function inicializar() {
     setId('');
-    setLogin('');
-    setSenha('');
-    setEmail('');
+    setNome('');
   }
 
   async function salvar() {
-    const data = JSON.stringify({ id, login, senha, email });
+    const data = JSON.stringify({ id, nome });
     try {
       if (!idParam) {
         await axios.post(baseURL, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
+        mensagemSucesso(`Modalidade ${nome} cadastrada com sucesso!`);
       } else {
         await axios.put(`${baseURL}/${idParam}`, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
+        mensagemSucesso(`Modalidade ${nome} alterada com sucesso!`);
       }
-      navigate('/listagem-usuarios');
+      navigate('/listagem-modalidades');
     } catch (error) {
-      mensagemErro(error.response?.data || 'Erro ao salvar usuário.');
+      mensagemErro(error.response?.data || 'Erro ao salvar modalidade.');
     }
   }
 
@@ -48,11 +44,9 @@ function CadastroUsuario() {
     if (idParam) {
       try {
         const response = await axios.get(`${baseURL}/${idParam}`);
-        const usuario = response.data;
-        setId(usuario.id);
-        setLogin(usuario.login);
-        setSenha(usuario.senha);
-        setEmail(usuario.email);
+        const modalidade = response.data;
+        setId(modalidade.id);
+        setNome(modalidade.nome);
       } catch (error) {
         console.log(error);
       }
@@ -65,35 +59,18 @@ function CadastroUsuario() {
 
   return (
     <div className="container">
-      <Card title="Cadastro de Usuário">
+      <Card title="Cadastro de Modalidades">
         <div className="row">
           <div className="col-lg-12">
             <div className="bs-component">
-              <FormGroup label="Login: *" htmlFor="inputLogin">
+              <FormGroup label="Nome: *" htmlFor="inputNome">
                 <input
                   type="text"
-                  id="inputLogin"
-                  value={login}
+                  id="inputNome"
+                  value={nome}
                   className="form-control"
-                  onChange={(e) => setLogin(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="Senha: *" htmlFor="inputSenha">
-                <input
-                  type="password"
-                  id="inputSenha"
-                  value={senha}
-                  className="form-control"
-                  onChange={(e) => setSenha(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="Email: *" htmlFor="inputEmail">
-                <input
-                  type="email"
-                  id="inputEmail"
-                  value={email}
-                  className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
@@ -112,4 +89,4 @@ function CadastroUsuario() {
   );
 }
 
-export default CadastroUsuario;
+export default CadastroModalidades;

@@ -18,7 +18,7 @@ function ListagemAlunos() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-alunos`);
+    navigate(`/cadastro-aluno`);
   };
 
   const editar = (id) => {

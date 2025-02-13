@@ -11,36 +11,36 @@ import { mensagemSucesso, mensagemErro } from '../components/toastr';
 import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
-function CadastroUsuario() {
+function CadastroPlano() {
   const { idParam } = useParams();
   const navigate = useNavigate();
-  const baseURL = `${BASE_URL}/dados`;
+  const baseURL = `${BASE_URL}/planos`;
 
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
-  const [email, setEmail] = useState('');
+  const [nome, setNome] = useState('');
+  const [preco, setPreco] = useState('');
 
   function inicializar() {
     setId('');
-    setLogin('');
-    setSenha('');
-    setEmail('');
+    setNome('');
+    setPreco('');
   }
 
   async function salvar() {
-    const data = JSON.stringify({ id, login, senha, email });
+    // Para cadastro novo, não enviamos o campo "id"
+    const dataObj = idParam ? { id, nome, "preço": preco } : { nome, "preço": preco };
+    const data = JSON.stringify(dataObj);
     try {
       if (!idParam) {
         await axios.post(baseURL, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
+        mensagemSucesso(`Plano ${nome} cadastrado com sucesso!`);
       } else {
         await axios.put(`${baseURL}/${idParam}`, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
+        mensagemSucesso(`Plano ${nome} alterado com sucesso!`);
       }
-      navigate('/listagem-usuarios');
+      navigate('/listagem-planos');
     } catch (error) {
-      mensagemErro(error.response?.data || 'Erro ao salvar usuário.');
+      mensagemErro(error.response?.data || 'Erro ao salvar plano.');
     }
   }
 
@@ -48,11 +48,10 @@ function CadastroUsuario() {
     if (idParam) {
       try {
         const response = await axios.get(`${baseURL}/${idParam}`);
-        const usuario = response.data;
-        setId(usuario.id);
-        setLogin(usuario.login);
-        setSenha(usuario.senha);
-        setEmail(usuario.email);
+        const plano = response.data;
+        setId(plano.id);
+        setNome(plano.nome);
+        setPreco(plano.preço);
       } catch (error) {
         console.log(error);
       }
@@ -65,35 +64,28 @@ function CadastroUsuario() {
 
   return (
     <div className="container">
-      <Card title="Cadastro de Usuário">
+      <Card title="Cadastro de Plano">
         <div className="row">
           <div className="col-lg-12">
             <div className="bs-component">
-              <FormGroup label="Login: *" htmlFor="inputLogin">
+              <FormGroup label="Período: *" htmlFor="inputNome">
                 <input
                   type="text"
-                  id="inputLogin"
-                  value={login}
+                  id="inputNome"
+                  value={nome}
                   className="form-control"
-                  onChange={(e) => setLogin(e.target.value)}
+                  onChange={(e) => setNome(e.target.value)}
+                  required
                 />
               </FormGroup>
-              <FormGroup label="Senha: *" htmlFor="inputSenha">
+              <FormGroup label="Valor: *" htmlFor="inputPreco">
                 <input
-                  type="password"
-                  id="inputSenha"
-                  value={senha}
+                  type="number"
+                  id="inputPreco"
+                  value={preco}
                   className="form-control"
-                  onChange={(e) => setSenha(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup label="Email: *" htmlFor="inputEmail">
-                <input
-                  type="email"
-                  id="inputEmail"
-                  value={email}
-                  className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setPreco(e.target.value)}
+                  required
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
@@ -112,4 +104,4 @@ function CadastroUsuario() {
   );
 }
 
-export default CadastroUsuario;
+export default CadastroPlano;

@@ -14,11 +14,11 @@ import { BASE_URL } from '../config/axios';
 
 const baseURL = `${BASE_URL}/planos`;
 
-function ListagemAlunos() {
+function ListagemPlanos() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-alunos`);
+    navigate(`/cadastro-plano`);
   };
 
   const editar = (id) => {
@@ -96,4 +96,4 @@ function ListagemAlunos() {
   );
 }
 
-export default ListagemAlunos;
+export default ListagemPlanos;

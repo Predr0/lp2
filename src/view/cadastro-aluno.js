@@ -22,7 +22,7 @@ function CadastroAluno() {
   const [modalidades, setModalidades] = useState('');
   const [plano, setPlano] = useState('');
   const [idCurso, setIdCurso] = useState('');
-  const [dadosCursos, setDadosCursos] = useState([]);
+  const [dadosCursos, setDadosCursos] = useState([]); // Mantido para o select de plano
 
   function inicializar() {
     setId('');
@@ -67,8 +67,9 @@ function CadastroAluno() {
     }
   }, [idParam, baseURL]);
 
+  // Essa requisição permanece se você precisar popular o select de plano
   useEffect(() => {
-    axios.get(`${BASE_URL}/cursos`).then((response) => setDadosCursos(response.data));
+    axios.get(`${BASE_URL}/alunos`).then((response) => setDadosCursos(response.data));
   }, []);
 
   useEffect(() => {
@@ -82,38 +83,60 @@ function CadastroAluno() {
           <div className='col-lg-12'>
             <div className='bs-component'>
               <FormGroup label='Nome: *' htmlFor='inputNome'>
-                <input type='text' id='inputNome' value={nome} className='form-control' onChange={(e) => setNome(e.target.value)} />
+                <input
+                  type='text'
+                  id='inputNome'
+                  value={nome}
+                  className='form-control'
+                  onChange={(e) => setNome(e.target.value)}
+                />
               </FormGroup>
               <FormGroup label='Email: *' htmlFor='inputEmail'>
-                <input type='email' id='inputEmail' value={email} className='form-control' onChange={(e) => setEmail(e.target.value)} />
+                <input
+                  type='email'
+                  id='inputEmail'
+                  value={email}
+                  className='form-control'
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </FormGroup>
               <FormGroup label='Modalidade: *' htmlFor='selectModalidade'>
-                <select className='form-select' id='selectModalidade' value={modalidades} onChange={(e) => setModalidades(e.target.value)}>
-                  <option value='0'>Selecione</option>
-                  {dadosCursos.map((dado) => (
-                    <option key={dado.id} value={dado.nome}>{dado.nome}</option>
-                  ))}
+                <select
+                  className='form-select'
+                  id='selectModalidade'
+                  value={modalidades}
+                  onChange={(e) => setModalidades(e.target.value)}
+                >
+                  <option value=''>Selecione</option>
+                  <option value='Muay Thai'>Muay Thai</option>
+                  <option value='Pilates'>Pilates</option>
+                  <option value='Musculação'>Musculação</option>
+                  <option value='Krav Maga'>Krav Maga</option>
+                  <option value='Jiu Jitsu'>Jiu Jitsu</option>
                 </select>
               </FormGroup>
               <FormGroup label='Plano: *' htmlFor='selectPlano'>
-                <select className='form-select' id='selectPlano' value={plano} onChange={(e) => setPlano(e.target.value)}>
+                <select
+                  className='form-select'
+                  id='selectPlano'
+                  value={plano}
+                  onChange={(e) => setPlano(e.target.value)}
+                >
                   <option value='0'>Selecione</option>
-                  {dadosCursos.map((dado) => (
-                    <option key={dado.id} value={dado.nome}>{dado.nome}</option>
-                  ))}
-                </select>
-              </FormGroup>
-              <FormGroup label='Curso: *' htmlFor='selectCurso'>
-                <select className='form-select' id='selectCurso' value={idCurso} onChange={(e) => setIdCurso(e.target.value)}>
-                  <option value='0'>Selecione</option>
-                  {dadosCursos.map((dado) => (
-                    <option key={dado.id} value={dado.id}>{dado.nome}</option>
-                  ))}
+                  <option value='Mensal'>Mensal</option>
+                  <option value='Bimestral'>Bimestral</option>
+                  <option value='Trimestral'>Trimestral</option>
+                  <option value='Semestral'>Semestral</option>
+                  <option value='Anual'>Anual</option>
                 </select>
               </FormGroup>
               <Stack spacing={1} padding={1} direction='row'>
-                <button onClick={salvar} type='button' className='btn btn-success'>Salvar</button>
-                <button onClick={inicializar} type='button' className='btn btn-danger'>Cancelar</button>
+                <button onClick={salvar} type='button' className='btn btn-success'>
+                  Salvar
+                </button>
+                <button onClick={inicializar} type='button' className='btn btn-danger'>
+                  Cancelar
+                </button>
               </Stack>
             </div>
           </div>

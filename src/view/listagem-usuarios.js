@@ -18,11 +18,11 @@ function ListagemUsuarios() {
   const navigate = useNavigate();
 
   const cadastrar = () => {
-    navigate(`/cadastro-usuarios`);
+    navigate(`/cadastro-usuario`);
   };
 
   const editar = (id) => {
-    navigate(`/cadastro-usuarios/${id}`);
+    navigate(`/cadastro-usuario/${id}`);
   };
 
   const [dados, setDados] = React.useState(null);

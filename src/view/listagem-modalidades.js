@@ -13,6 +13,7 @@ import axios from 'axios';
 import { BASE_URL } from '../config/axios';
 
 const baseURL = `${BASE_URL}/modalidades`;
+const alunosURL = `${BASE_URL}/alunos`;
 
 function ListagemModalidades() {
   const navigate = useNavigate();
@@ -25,65 +26,99 @@ function ListagemModalidades() {
     navigate(`/cadastro-modalidades/${id}`);
   };
 
+  // Estado para as modalidades
   const [dados, setDados] = React.useState(null);
+  // Estado para os alunos
+  const [alunos, setAlunos] = React.useState([]);
+
+  // Busca as modalidades
   React.useEffect(() => {
     axios
       .get(baseURL)
       .then((response) => {
         setDados(response.data);
       })
+      .catch((error) => {
+        console.error('Erro ao buscar modalidades:', error);
+      });
+  }, []);
+
+  // Busca os alunos
+  React.useEffect(() => {
+    axios
+      .get(alunosURL)
+      .then((response) => {
+        setAlunos(response.data);
+      })
+      .catch((error) => {
+        console.error('Erro ao buscar alunos:', error);
+      });
   }, []);
 
   if (!dados) return null;
 
   return (
-    <div className='container'>
-      <Card title='Listagem de Alunos'>
-        <div className='row'>
-          <div className='col-lg-12'>
-            <div className='bs-component'>
+    <div className="container">
+      <Card title="Listagem de Modalidades">
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="bs-component">
               <button
-                type='button'
-                className='btn btn-warning'
+                type="button"
+                className="btn btn-warning"
                 onClick={() => cadastrar()}
               >
                 Nova Modalidade
               </button>
-              <table className='table table-hover'>
+              <table className="table table-hover">
                 <thead>
                   <tr>
-                    <th scope='col'>Id</th>
-                    <th scope='col'>Nome</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Alunos Matriculados</th>
+                    <th scope="col">Ações</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {dados.map((dado) => (
-                    <tr key={dado.id}>
-                      <td>{dado.id}</td>
-                      <td>{dado.nome}</td>
-                     
-                      {/*<td>{dado.quantMin}</td>
-                      <td>{dado.vencimento}</td>
-                      <td>{dado.dataEntrada}</td>
-                      <td>{dado.precoCompra}</td>*/}
-                      <td>
-                        <Stack spacing={1} padding={0} direction='row'>
-                          <IconButton
-                            aria-label='edit'
-                            onClick={() => editar(dado.id)}
-                          >
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton
-                            aria-label='delete'
-                            // onClick={() => excluir(dado.id)}
-                          >
-                            <DeleteIcon />
-                          </IconButton>
-                        </Stack>
-                      </td>
-                    </tr>
-                  ))}
+                  {dados.map((modalidade) => {
+                    // Filtra os alunos que possuem a modalidade atual (comparando o nome)
+                    const alunosMatriculados = alunos.filter(
+                      (aluno) => aluno.modalidades === modalidade.nome
+                    );
+                    return (
+                      <tr key={modalidade.id}>
+                        <td>{modalidade.id}</td>
+                        <td>{modalidade.nome}</td>
+                        <td>
+                          {alunosMatriculados.length > 0 ? (
+                            <ul>
+                              {alunosMatriculados.map((aluno) => (
+                                <li key={aluno.id}>{aluno.nome}</li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <span>Nenhum aluno matriculado</span>
+                          )}
+                        </td>
+                        <td>
+                          <Stack spacing={1} padding={0} direction="row">
+                            <IconButton
+                              aria-label="edit"
+                              onClick={() => editar(modalidade.id)}
+                            >
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton
+                              aria-label="delete"
+                              // onClick={() => excluir(modalidade.id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Stack>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

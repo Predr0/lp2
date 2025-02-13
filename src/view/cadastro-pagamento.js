@@ -9,38 +9,43 @@ import FormGroup from '../components/form-group';
 import { mensagemSucesso, mensagemErro } from '../components/toastr';
 
 import axios from 'axios';
-import { BASE_URL } from '../config/axios';
+import { BASE_URL2 } from '../config/axios';
 
-function CadastroUsuario() {
+function CadastroPagamentos() {
   const { idParam } = useParams();
   const navigate = useNavigate();
-  const baseURL = `${BASE_URL}/dados`;
+  const baseURL = `${BASE_URL2}/pagamento`;
 
   const [id, setId] = useState('');
-  const [login, setLogin] = useState('');
-  const [senha, setSenha] = useState('');
-  const [email, setEmail] = useState('');
+  const [nomeAluno, setNomeAluno] = useState('');
+  const [modalidade, setModalidade] = useState('');
+  const [valor, setValor] = useState('');
 
   function inicializar() {
     setId('');
-    setLogin('');
-    setSenha('');
-    setEmail('');
+    setNomeAluno('');
+    setModalidade('');
+    setValor('');
   }
 
   async function salvar() {
-    const data = JSON.stringify({ id, login, senha, email });
+    // Para novo cadastro, não envia o campo "id"
+    const dataObj = idParam
+      ? { id, nome_aluno: nomeAluno, modalidade, valor: parseFloat(valor) }
+      : { nome_aluno: nomeAluno, modalidade, valor: parseFloat(valor) };
+    const data = JSON.stringify(dataObj);
+
     try {
       if (!idParam) {
         await axios.post(baseURL, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} cadastrado com sucesso!`);
+        mensagemSucesso(`Pagamento cadastrado com sucesso!`);
       } else {
         await axios.put(`${baseURL}/${idParam}`, data, { headers: { 'Content-Type': 'application/json' } });
-        mensagemSucesso(`Usuário ${login} alterado com sucesso!`);
+        mensagemSucesso(`Pagamento alterado com sucesso!`);
       }
-      navigate('/listagem-usuarios');
+      navigate('/listagem-pagamentos');
     } catch (error) {
-      mensagemErro(error.response?.data || 'Erro ao salvar usuário.');
+      mensagemErro(error.response?.data || 'Erro ao salvar pagamento.');
     }
   }
 
@@ -48,11 +53,11 @@ function CadastroUsuario() {
     if (idParam) {
       try {
         const response = await axios.get(`${baseURL}/${idParam}`);
-        const usuario = response.data;
-        setId(usuario.id);
-        setLogin(usuario.login);
-        setSenha(usuario.senha);
-        setEmail(usuario.email);
+        const pagamento = response.data;
+        setId(pagamento.id);
+        setNomeAluno(pagamento.nome_aluno);
+        setModalidade(pagamento.modalidade);
+        setValor(pagamento.valor);
       } catch (error) {
         console.log(error);
       }
@@ -65,35 +70,38 @@ function CadastroUsuario() {
 
   return (
     <div className="container">
-      <Card title="Cadastro de Usuário">
+      <Card title="Cadastro de Pagamento">
         <div className="row">
           <div className="col-lg-12">
             <div className="bs-component">
-              <FormGroup label="Login: *" htmlFor="inputLogin">
+              <FormGroup label="Nome do Aluno: *" htmlFor="inputNomeAluno">
                 <input
                   type="text"
-                  id="inputLogin"
-                  value={login}
+                  id="inputNomeAluno"
+                  value={nomeAluno}
                   className="form-control"
-                  onChange={(e) => setLogin(e.target.value)}
+                  onChange={(e) => setNomeAluno(e.target.value)}
+                  required
                 />
               </FormGroup>
-              <FormGroup label="Senha: *" htmlFor="inputSenha">
+              <FormGroup label="Modalidade: *" htmlFor="inputModalidade">
                 <input
-                  type="password"
-                  id="inputSenha"
-                  value={senha}
+                  type="text"
+                  id="inputModalidade"
+                  value={modalidade}
                   className="form-control"
-                  onChange={(e) => setSenha(e.target.value)}
+                  onChange={(e) => setModalidade(e.target.value)}
+                  required
                 />
               </FormGroup>
-              <FormGroup label="Email: *" htmlFor="inputEmail">
+              <FormGroup label="Valor: *" htmlFor="inputValor">
                 <input
-                  type="email"
-                  id="inputEmail"
-                  value={email}
+                  type="number"
+                  id="inputValor"
+                  value={valor}
                   className="form-control"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) => setValor(e.target.value)}
+                  required
                 />
               </FormGroup>
               <Stack spacing={1} padding={1} direction="row">
@@ -112,4 +120,4 @@ function CadastroUsuario() {
   );
 }
 
-export default CadastroUsuario;
+export default CadastroPagamentos;
